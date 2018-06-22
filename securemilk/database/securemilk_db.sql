@@ -10,9 +10,9 @@ CREATE TABLE `securemilk`.`users` (
 ) ENGINE = InnoDB;
 
 -- Insert the securemilk users
-INSERT INTO `securemilk`.`users` VALUES (null, 'user', 'DBD50F417158FE7B778D30B5C06B9C7A', "rD4CLcy5VvvFOKVsZHaENg=="); 
-INSERT INTO `securemilk`.`users` VALUES (null, 'milk_man', 'BA1BB6E7A580A5245C88A7617FEE7F20', "SaAkwYP3r2gCOMD9OfTnrw=="); 
-INSERT INTO `securemilk`.`users` VALUES (null, 'the_boss', '3291C36B590AAE9DDB8CE7D188E46B54', "ZY9gxoEjjMrUaLMbVgHEEA=="); 
+INSERT INTO `securemilk`.`users` VALUES (null, 'user', '88c1ecd842b7da2840754c9718ac3f43', "rD4CLcy5VvvFOKVsZHaENg=="); 
+INSERT INTO `securemilk`.`users` VALUES (null, 'milk_man', '6cb29b9a6a7eb9b256138816d908c382', "SaAkwYP3r2gCOMD9OfTnrw=="); 
+INSERT INTO `securemilk`.`users` VALUES (null, 'the_boss', 'e8bcd404315a81bdb5974591779752c8', "ZY9gxoEjjMrUaLMbVgHEEA=="); 
 
 -- Create table for employee lookup
 CREATE TABLE `securemilk`.`members` (
