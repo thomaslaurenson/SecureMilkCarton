@@ -22,12 +22,15 @@ Included with SecureMilkCarton are a collection of tasks, somewhat similar to th
 ## SecureMilkCarton: Quick Start
 
 - Install Ubuntu 18.04 server on a VM
-- Install Apache Tomcat:
-    - [Digital Ocean Tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-apache-tomcat-8-on-ubuntu-16-04)
-- Install MySQL and JDK
-    - `sudo apt install default-jdk mysql-server`
-- Clone this repository
-    - `git clone https://github.com/thomaslaurenson/SecureMilkCarton.git`
+- Make sure git is installed:
+    - `sudo apt install git`
+- Clone this repository to your home directory:
+    - ``cd ~ && git clone https://github.com/thomaslaurenson/SecureMilkCarton.git`
+- Run the web application build script:
+    - `chmod u+x build.sh && sudo ./build.sh`
+- Check the web application in a web browser:
+    - `<server-ip-address>:8080/securemilk/`
+    - For example: `192.168.1.10:8080/securemilk/`
 - Run the compilation script
     - `cd ~/securemilk && sudo ./scripts/compile.sh`
 
