@@ -163,7 +163,7 @@ cd /tmp
 if [ ! -f /etc/systemd/system/tomcat.service ]
     then
     echo ">>> File not found... Downloading."
-    sudo cp ~/SecureMilkCarton/build/tomcat.service /etc/systemd/system/
+    sudo cp ~/SecureMilkCarton/securemilkcarton/build/tomcat.service /etc/systemd/system/
     if [ ! $? -eq 0 ]
     then
        echo ">>> Failed service download. Exiting."
@@ -202,8 +202,8 @@ sudo systemctl enable tomcat
 # Change to home directory
 cd ~
 
-# Move to the securemilk database directory
-cd ~/SecureMilkCarton/securemilk/database
+# Move to the securemilkcarton database directory
+cd ~/SecureMilkCarton/securemilkcarton/database
 
 # Set appropriate permissions
 chmod u+x create_db.sh
@@ -212,8 +212,8 @@ chmod u+x recreate_db.sh
 # Create the database
 ./create_db.sh
 
-# Move to the securemilk scripts directory
-cd ~/SecureMilkCarton/securemilk/scripts
+# Move to the securemilkcarton scripts directory
+cd ~/SecureMilkCarton/securemilkcarton/scripts
 
 # Set appropriate permissions
 chmod u+x compile.sh

@@ -4,7 +4,7 @@
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <link rel="stylesheet" type="text/css" href="style.css">
-      <title>The Secure Milk Carton - Milk Products Search Page</title>
+      <title>Secure Milk Carton - Milk Products Search Page</title>
    </head>
    <body>
       <div id="wrapper">
@@ -26,7 +26,7 @@
              <h1>Welcome: <%=session.getAttribute("username")%></h1>
 
             <div class="imgcontainer">
-                <img class="logo" src="securemilk_logo.jpg" alt="Secure Milk Carton">
+                <img class="logo" src="securemilkcarton_logo.jpg" alt="Secure Milk Carton">
             </div>
 
             <h1>Search Milk Product Database:</h1>
@@ -54,7 +54,7 @@
                         try 
                         {
                             Class.forName("com.mysql.jdbc.Driver");
-                            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/securemilk?autoReconnect=true&useSSL=false", "root", "passw0rd");
+                            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/securemilkcarton?autoReconnect=true&useSSL=false", "root", "passw0rd");
                         
                             Statement st = conn.createStatement();
                             String sql = "SELECT username, name, description FROM members WHERE username='" + username + "'";

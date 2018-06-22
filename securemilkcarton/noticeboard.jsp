@@ -4,7 +4,7 @@
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <link rel="stylesheet" type="text/css" href="style.css">
-      <title>The Secure Milk Carton - Noticeboard</title>
+      <title>Secure Milk Carton - Noticeboard</title>
       <script type="text/javascript" src="jquery.js"></script>
       <script>
          // A function to check if both text boxes have an entry
@@ -58,7 +58,7 @@
         </div>
          <div id="content">
             <div class="imgcontainer">
-                <img class="logo" src="securemilk_logo.jpg" alt="Secure Milk Carton">
+                <img class="logo" src="securemilkcarton_logo.jpg" alt="Secure Milk Carton">
             </div>
             <h1>Please leave your name and comments:</h1>
             <div class="input-form">
@@ -76,7 +76,7 @@
                <%
                   try {
                       Class.forName("com.mysql.jdbc.Driver");
-                      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/securemilk?autoReconnect=true&useSSL=false", "root", "passw0rd");
+                      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/securemilkcarton?autoReconnect=true&useSSL=false", "root", "passw0rd");
                   
                       Statement st = conn.createStatement();
                       String sql = "SELECT name, comments FROM noticeboard";

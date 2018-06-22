@@ -4,7 +4,7 @@
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <link rel="stylesheet" type="text/css" href="style.css">
-      <title>The Secure Milk Carton - Login Page</title>
+      <title>Secure Milk Carton - Login Page</title>
    </head>
    <body>
       <div id="wrapper">
@@ -17,7 +17,7 @@
          </div>
          <div id="content">
             <div class="imgcontainer">
-               <img class="logo" src="securemilk_logo.jpg" alt="Secure Milk Carton">
+               <img class="logo" src="securemilkcarton_logo.jpg" alt="Secure Milk Carton">
             </div>
             <div class="input-form">
             <form action="login">

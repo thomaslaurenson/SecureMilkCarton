@@ -27,7 +27,7 @@ public class Login extends HttpServlet {
   PrintWriter out = response.getWriter();
   try {
 
-   System.out.println(">>> Starting securemilk login...");
+   System.out.println(">>> Starting securemilkcarton login...");
 
    // Get the username + password from the user inputs
    String username = request.getParameter("username");
@@ -62,7 +62,7 @@ public class Login extends HttpServlet {
     Class.forName("com.mysql.jdbc.Driver");
     // Connect to MySQL database on localhost on port 3306
     // Use username of "root" and password of "passw0rd"
-    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/securemilk?autoReconnect=true&useSSL=false", "root", "passw0rd");
+    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/securemilkcarton?autoReconnect=true&useSSL=false", "root", "passw0rd");
 
     // Create an SQL statement to query database for username/password
     Statement st = conn.createStatement();

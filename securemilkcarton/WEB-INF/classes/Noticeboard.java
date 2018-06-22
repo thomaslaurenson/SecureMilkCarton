@@ -37,7 +37,7 @@ public class Noticeboard extends HttpServlet {
     Class.forName("com.mysql.jdbc.Driver");
     // Connect to MySQL database on localhost on port 3306
     // Use username of "root" and password of "passw0rd"
-    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/securemilk?autoReconnect=true&useSSL=false", "root", "passw0rd");
+    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/securemilkcarton?autoReconnect=true&useSSL=false", "root", "passw0rd");
 
     // Create an SQL statement to insert name, comment into database 
     conn.setAutoCommit(false);

@@ -4,7 +4,7 @@ error_checking_output () {
    exit 1
 }
 
-echo ">>> Starting build and deployment for secure milk..."
+echo ">>> Starting build and deployment for secure milk carton..."
 
 # Export the classpath for the Java Servlet API
 # This is required to compile specific Java Servlet code in the .java files
@@ -15,23 +15,23 @@ if [ ! $? -eq 0 ]; then
 fi
 
 # Compile each of the three .java files
-javac -classpath "/opt/tomcat/lib/servlet-api.jar" ~/SecureMilkCarton/securemilk/WEB-INF/classes/Login.java ~/SecureMilkCarton/securemilk/WEB-INF/classes/Hashing.java
+javac -classpath "/opt/tomcat/lib/servlet-api.jar" ~/SecureMilkCarton/securemilkcarton/WEB-INF/classes/Login.java ~/SecureMilkCarton/securemilkcarton/WEB-INF/classes/Hashing.java
 if [ ! $? -eq 0 ]; then
    error_checking_output "  > Compiling Login.java and Hashing.java failed. Exiting."
 fi
-javac -classpath "/opt/tomcat/lib/servlet-api.jar" ~/SecureMilkCarton/securemilk/WEB-INF/classes/Noticeboard.java
+javac -classpath "/opt/tomcat/lib/servlet-api.jar" ~/SecureMilkCarton/securemilkcarton/WEB-INF/classes/Noticeboard.java
 if [ ! $? -eq 0 ]; then
    error_checking_output "  > Compiling Noticeboard.java failed. Exiting."
 fi
 
 # Make sure we are in the web app root directory
 echo "  > Entering web app root directory"
-cd ~/SecureMilkCarton/securemilk
+cd ~/SecureMilkCarton/securemilkcarton
 
 # Create a .war file to export to the Java Tomcat web server
 # A .war file is very similar to the .jar file type
 echo ">>> Creating WAR file to distribute WebApp to Tomcat"
-jar -cf securemilk.war *
+jar -cf securemilkcarton.war *
 if [ ! $? -eq 0 ]; then
    error_checking_output "  > Creating WAR file failed. Exiting."
 fi
@@ -39,6 +39,6 @@ fi
 # Copy the .war file to the Java Tomcat web server
 # This will make the web application available (browsable)
 echo ">>> Copying WAR file to /opt/tomcat/webapps/"
-sudo cp securemilk.war /opt/tomcat/webapps/
+sudo cp securemilkcarton.war /opt/tomcat/webapps/
 
 echo ">>> Finished."

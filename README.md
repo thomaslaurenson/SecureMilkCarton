@@ -30,8 +30,8 @@ Included with SecureMilkCarton are a collection of tasks, somewhat similar to th
     - `cd ~/SecureMilkCarton/build && chmod u+x build.sh && sudo ./build.sh`
     - You will be prompted for the MySQL root user password, use: ``passw0rd`
 - Check the web application in a web browser:
-    - `<server-ip-address>:8080/securemilk/`
-    - For example: `192.168.1.10:8080/securemilk/`
+    - `<server-ip-address>:8080/securemilkcarton/`
+    - For example: `192.168.1.10:8080/securemilkcarton/`
 
 ## SecureMilkCarton: Installation
 
@@ -219,7 +219,7 @@ The directory structure of the web application is very important to learn and un
 - `noticeboard.jsp`: the HTML code for the noticeboard web page
 - `style.css`: the CSS style sheet for the website
 - `jquery.js`: the JQuery library dependency for the noticeboard web page
-- `securemilk_logo.jpg`: the company logo to make things look pretty
+- `securemilkcarton_logo.jpg`: the company logo to make things look pretty
 - `WEB-INF`: a folder containing web application resources
     - `classes`: a folder containing java code
         - `Login.java`: server-side code for the login web page
@@ -229,9 +229,9 @@ The directory structure of the web application is very important to learn and un
         - `mysql-connector-java-5.1.42-bin.jar`: dependency jar file to connect to local MySQL database
         - Other dependencies can be included in this folder
 - `database`: a collection of file for database creation and re-creation:
-    - `securemilk_db.sql`: a SQL file containing all securemilk database entries
-    - `create_db.sh`: this script uses `securemilk_db.sql` to automate creation the database
-    - `recreate_db.sh`: this script deletes the old database and recreates the original database using the `securemilk_db.sql` file
+    - `securemilkcarton_db.sql`: a SQL file containing all securemilkcarton database entries
+    - `create_db.sh`: this script uses `securemilkcarton_db.sql` to automate creation the database
+    - `recreate_db.sh`: this script deletes the old database and recreates the original database using the `securemilkcarton_db.sql` file
     - `passwords.csv`: a comma-separated values (CSV) file containing usernames, passwords and salt values. This file is useful when changing the password hashing algorithm
 - `scripts`: a collection of scripts that make life easier:
     - `compile.sh`: a script to compile the Java source code and package the entire web application into a distributable .war file for deployment to the Tomcat server
@@ -243,10 +243,10 @@ This section documents several common scenarios that you will need to perform in
 
 ### How to create database
 
-The database is essential for the SecureMilkCarton web application to function. Therefore, creating the database is a key step. This process can be automated using the `create_db.sh` script provided in the `SecureMilkCarton/securemilk/databases` folder. Simply run the script using the following command (the following instructions assumes for have the repo in your home folder):
+The database is essential for the SecureMilkCarton web application to function. Therefore, creating the database is a key step. This process can be automated using the `create_db.sh` script provided in the `SecureMilkCarton/securemilkcarton/databases` folder. Simply run the script using the following command (the following instructions assumes for have the repo in your home folder):
 
 ```
-cd ~/SecureMilkCarton/securemilk/databases
+cd ~/SecureMilkCarton/securemilkcarton/databases
 ./create_db.sh 
 ```
 
@@ -255,19 +255,19 @@ You will be prompted to enter the password for the root user of the database acc
 The primary action the script performs is depicted in the following code snippet:
 
 ```
-cat ~/SecureMilkCarton/securemilk/database/securemilk_db.sql | mysql -u root -p
+cat ~/SecureMilkCarton/securemilkcarton/database/securemilkcarton_db.sql | mysql -u root -p
 ```
 
-This line of code prints the contents of `securemilk_db.sql` file containing the database contents, and pipes the content into the `mysql` command which populates the database.
+This line of code prints the contents of `securemilkcarton_db.sql` file containing the database contents, and pipes the content into the `mysql` command which populates the database.
 
 ### How to delete and recreate database
 
-Similar to creating the database, you can also recreate the database using the same `securemilk_db.sql` file. However, be warned... this script drops the entire `securemilk` database and all entries. If you have made any modifications to the database contents, this information will be lost.
+Similar to creating the database, you can also recreate the database using the same `securemilkcarton_db.sql` file. However, be warned... this script drops the entire `securemilkcarton` database and all entries. If you have made any modifications to the database contents, this information will be lost.
 
-Recreating the datadase can be automated using the `recreate_db.sh` script provided in the `SecureMilkCarton/securemilk/databases` folder. Simply run the script using the following command (the following instructions assumes for have the repo in your home folder):
+Recreating the datadase can be automated using the `recreate_db.sh` script provided in the `SecureMilkCarton/securemilkcarton/databases` folder. Simply run the script using the following command (the following instructions assumes for have the repo in your home folder):
 
 ```
-cd ~/SecureMilkCarton/securemilk/databases
+cd ~/SecureMilkCarton/securemilkcarton/databases
 ./create_db.sh 
 ```
 
@@ -275,10 +275,10 @@ You will be prompted to enter the password for the root user of the database acc
 
 ### How to compile and deploy
 
-This project uses a simple static technique to compile and deploy a Tomcat web application. This process can be automated using the `compile.sh` script provided in the `SecureMilkCarton/securemilk/scripts` folder. Simply run the script using the following command (the following instructions assumes for have the repo in your home folder):
+This project uses a simple static technique to compile and deploy a Tomcat web application. This process can be automated using the `compile.sh` script provided in the `SecureMilkCarton/securemilkcarton/scripts` folder. Simply run the script using the following command (the following instructions assumes for have the repo in your home folder):
 
 ```
-cd ~/SecureMilkCarton/securemilk/scripts
+cd ~/SecureMilkCarton/securemilkcarton/scripts
 sudo ./compile.sh 
 ```
 
@@ -288,14 +288,14 @@ Below is a snippet of the primary code that compiles and deploys the web applica
 
 ```
 # Compile each of the three .java files
-javac -classpath "/opt/tomcat/lib/servlet-api.jar" ~/securemilk/WEB-INF/classes/Login.java ~/securemilk/WEB-INF/classes/Hashing.java
-javac -classpath "/opt/tomcat/lib/servlet-api.jar" ~/securemilk/WEB-INF/classes/Noticeboard.java
+javac -classpath "/opt/tomcat/lib/servlet-api.jar" ~/SecureMilkCarton/securemilkcarton/WEB-INF/classes/Login.java ~/SecureMilkCarton/securemilkcarton/WEB-INF/classes/Hashing.java
+javac -classpath "/opt/tomcat/lib/servlet-api.jar" ~/SecureMilkCarton/securemilkcarton/WEB-INF/classes/Noticeboard.java
 
 # Create a .war file to export to the Java Tomcat web server
-jar -cf securemilk.war *
+jar -cf securemilkcarton.war *
 
 # Copy the .war file to the Java Tomcat web server
-sudo cp securemilk.war /opt/tomcat/webapps/
+sudo cp securemilkcarton.war /opt/tomcat/webapps/
 ```
 
 ### How to access the web application
@@ -307,17 +307,17 @@ The web application is accessible through any web browser, however, it is recomm
 
 Therefore you can access the web application by using the following URL in your web browser:
 
-- `<server-ip-address>:8080/securemilk/`
-- For example: `192.168.1.10:8080/securemilk/`
+- `<server-ip-address>:8080/securemilkcarton/`
+- For example: `192.168.1.10:8080/securemilkcarton/`
 
 If you performed the optional step of changing the default ports you can access the web application using the following URL in your web browser:
 
-- `<server-ip-address>/securemilk/`
-- For example: `192.168.1.10/securemilk/`
+- `<server-ip-address>/securemilkcarton/`
+- For example: `192.168.1.10/securemilkcarton/`
 
 Since SecureMilkCarton is a vulnerable, and terribly configured, web application it is not served using HTTPS by default. If you do implement HTTPS certificates, the web application will then be accessible using the following URLs:
 
-- `https://<server-ip-address>:8443/securemilk/` (if using port 8443)
-- For example: `192.168.1.10:8443/securemilk/`
-- `https://<server-ip-address>/securemilk/` (if using port 443)
-- For example: `https://192.168.1.10/securemilk/`
+- `https://<server-ip-address>:8443/securemilkcarton/` (if using port 8443)
+- For example: `192.168.1.10:8443/securemilkcarton/`
+- `https://<server-ip-address>/securemilkcarton/` (if using port 443)
+- For example: `https://192.168.1.10/securemilkcarton/`
