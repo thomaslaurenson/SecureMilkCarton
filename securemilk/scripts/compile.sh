@@ -15,18 +15,18 @@ if [ ! $? -eq 0 ]; then
 fi
 
 # Compile each of the three .java files
-javac -classpath "/opt/tomcat/lib/servlet-api.jar" ~/securemilk/WEB-INF/classes/Login.java ~/securemilk/WEB-INF/classes/Hashing.java
+javac -classpath "/opt/tomcat/lib/servlet-api.jar" ~/SecureMilkCarton/securemilk/WEB-INF/classes/Login.java ~/SecureMilkCarton/securemilk/WEB-INF/classes/Hashing.java
 if [ ! $? -eq 0 ]; then
    error_checking_output "  > Compiling Login.java and Hashing.java failed. Exiting."
 fi
-javac -classpath "/opt/tomcat/lib/servlet-api.jar" ~/securemilk/WEB-INF/classes/Noticeboard.java
+javac -classpath "/opt/tomcat/lib/servlet-api.jar" ~/SecureMilkCarton/securemilk/WEB-INF/classes/Noticeboard.java
 if [ ! $? -eq 0 ]; then
    error_checking_output "  > Compiling Noticeboard.java failed. Exiting."
 fi
 
 # Make sure we are in the web app root directory
 echo "  > Entering web app root directory"
-cd ~/securemilk
+cd ~/SecureMilkCarton/securemilk
 
 # Create a .war file to export to the Java Tomcat web server
 # A .war file is very similar to the .jar file type

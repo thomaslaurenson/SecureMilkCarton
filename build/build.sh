@@ -4,7 +4,7 @@
 # default-jdk - tomcat requires Java
 # curl - required for downloading files
 # mysql-server - required for database
-sudo apt-get install default-jdk curl mysql-server
+sudo apt-get --assume-yes install default-jdk curl mysql-server
 if [ ! $? -eq 0 ]
 then
    echo ">>> Failed package install. Exiting."
@@ -15,7 +15,7 @@ fi
 cd /tmp
 
 # Download tomcat tarball, skip if already downloaded
-if [ ! -f /tmp/apache-tomcat-8.5.52.tar.gz ]
+if [ ! -f /tmp/apache-tomcat-8.0.52.tar.gz ]
     then
     echo ">>> File not found... Downloading."
     curl -O http://www-us.apache.org/dist/tomcat/tomcat-8/v8.0.52/bin/apache-tomcat-8.0.52.tar.gz
@@ -42,7 +42,7 @@ else
 fi
 
 # Extract tomcat to /opt/tomcat
-sudo tar xzvf apache-tomcat-8.5.52.tar.gz -C /opt/tomcat --strip-components=1
+sudo tar xzvf apache-tomcat-8.0.52.tar.gz -C /opt/tomcat --strip-components=1
 if [ ! $? -eq 0 ]
 then
    echo "Failed tomcat extraction. Exiting."
@@ -160,10 +160,10 @@ fi
 cd /tmp
 
 # Download the service file
-if [ ! -f /tmp/tomcat.service ]
+if [ ! -f /etc/systemd/system/tomcat.service ]
     then
     echo ">>> File not found... Downloading."
-    curl -O http://kate.ict.op.ac.nz/~toml/IN618security/tomcat.service
+    sudo cp ~/SecureMilkCarton/build/tomcat.service /etc/systemd/system/
     if [ ! $? -eq 0 ]
     then
        echo ">>> Failed service download. Exiting."
@@ -172,8 +172,6 @@ if [ ! -f /tmp/tomcat.service ]
 else
     echo ">>> File found... Skipping download."
 fi
-
-sudo cp tomcat.service /etc/systemd/system/
 
 sudo chmod 755 /etc/systemd/system/tomcat.service
 
@@ -204,31 +202,21 @@ sudo systemctl enable tomcat
 # Change to home directory
 cd ~
 
-# Download the webapp archive
-if [ ! -f ~/securemilk.tar ]
-    then
-    echo ">>> File not found... Downloading."
-    curl -O http://kate.ict.op.ac.nz/~toml/IN618security/initech.tar
-    if [ ! $? -eq 0 ]
-    then
-       echo ">>> Failed webapp download. Exiting."
-       exit 1
-    fi
-else
-    echo ">>> File found... Skipping download."
-fi
+# Move to the securemilk database directory
+cd ~/SecureMilkCarton/securemilk/database
 
-# Extract the webapp
-tar xvf initech.tar
-
-# Move to the webapp directory
-cd ~/initech/scripts
+# Set appropriate permissions
+chmod u+x create_db.sh
+chmod u+x recreate_db.sh
 
 # Create the database
-cat create_db.sql | mysql -u root -p
+./create_db.sh
 
-# Move to the webapp directory
-cd ~/initech
+# Move to the securemilk scripts directory
+cd ~/SecureMilkCarton/securemilk/scripts
+
+# Set appropriate permissions
+chmod u+x compile.sh
 
 # Run the compilation script
 sudo ./compile.sh
