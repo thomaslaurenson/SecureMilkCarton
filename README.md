@@ -27,7 +27,8 @@ Included with SecureMilkCarton are a collection of tasks, somewhat similar to th
 - Clone this repository to your home directory:
     - `cd ~ && git clone https://github.com/thomaslaurenson/SecureMilkCarton.git`
 - Run the web application build script:
-    - `chmod u+x build.sh && sudo ./build.sh`
+    - `cd ~/SecureMilkCarton/build && chmod u+x build.sh && sudo ./build.sh`
+    - You will be prompted for the MySQL root user password, use: ``passw0rd`
 - Check the web application in a web browser:
     - `<server-ip-address>:8080/securemilk/`
     - For example: `192.168.1.10:8080/securemilk/`
