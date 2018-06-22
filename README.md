@@ -25,14 +25,12 @@ Included with SecureMilkCarton are a collection of tasks, somewhat similar to th
 - Make sure git is installed:
     - `sudo apt install git`
 - Clone this repository to your home directory:
-    - ``cd ~ && git clone https://github.com/thomaslaurenson/SecureMilkCarton.git`
+    - `cd ~ && git clone https://github.com/thomaslaurenson/SecureMilkCarton.git`
 - Run the web application build script:
     - `chmod u+x build.sh && sudo ./build.sh`
 - Check the web application in a web browser:
     - `<server-ip-address>:8080/securemilk/`
     - For example: `192.168.1.10:8080/securemilk/`
-- Run the compilation script
-    - `cd ~/securemilk && sudo ./scripts/compile.sh`
 
 ## SecureMilkCarton: Installation
 
@@ -50,6 +48,13 @@ Install VMWare tools (if using VMWare):
 
 ```
 sudo apt install open-vm-tools
+```
+
+Clone this repository to your home directory:
+
+```
+cd ~
+git clone https://github.com/thomaslaurenson/SecureMilkCarton.git
 ```
 
 From here, you can use the `build.sh` script to install all required packages, configure the services, and then build and deploy the SecureMilkCarton web application.
