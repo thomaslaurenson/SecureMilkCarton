@@ -78,7 +78,7 @@ Run the `build.sh` script using sudo rights:
 sudo ./build.sh
 ```
 
-#### Optional: Install better history
+### Optional: Install better history
 
 I find when deploying this assessment for learners, it is beneficial to improve the history retention, that is, the information retained by the `~/.bash_history` file and associated `history` command. This project include a simple script (`better_history.sh`) that enhances the history configuration, including:
 
@@ -94,22 +94,7 @@ cd ~/SecureMilkCarton/build/
 exit
 ```
 
-## SecureMilkCarton: Web Server Configuration
-
-An SSH server has been installed using the OpenSSH software. However, no configuration has been performed. You can login to the SSH service on port 22. The login details are any user account that has been created on the virtual machine.
-
-A MySQL database has been installed and partially configured. The credentials for the MySQL database are:
-
-- Username: `root`
-- Password: `passw0rd`
-
-Apache TomCat (a type of web server software) has also been installed on the server. The TomCat service is a Java Servlet Container – basically a web server that allows the creation and sharing (via HTTP) of a web application written with Java on the server-side. Although the web application is very simple (compared to real-world web applications), getting used to the setup can take some practice. Here is some relevant information about the web application configuration:
-
-- The web application is stored in: `/opt/tomcat/webapps/`
-
-There are a variety of additional tweaks that can be made to the SecureMilkCarton. The subsections below summarise a collection of these additional configurations.
-
-#### Additional Configuration: Changing the default ports
+### Optional: Changing the default ports
 
 It might be easier to change the default Apache Tomcat ports. After a default installation, Apache Tomcat runs on the following ports:
 
@@ -209,8 +194,21 @@ The following two `iptables` rules will forward all traffic from port 80 and 443
 
 ```
 sudo iptables -t nat -A PREROUTING -i ens160 -p tcp --dport 80 -j REDIRECT --to-port 8080
-iptables -t nat -A PREROUTING -i ens160 -p tcp --dport 443 -j REDIRECT --to-port 8443
+sudo iptables -t nat -A PREROUTING -i ens160 -p tcp --dport 443 -j REDIRECT --to-port 8443
 ```
+
+## SecureMilkCarton: Web Server Configuration
+
+An SSH server has been installed using the OpenSSH software. However, no configuration has been performed. You can login to the SSH service on port 22. The login details are any user account that has been created on the virtual machine.
+
+A MySQL database has been installed and partially configured. The credentials for the MySQL database are:
+
+- Username: `root`
+- Password: `passw0rd`
+
+Apache TomCat (a type of web server software) has also been installed on the server. The TomCat service is a Java Servlet Container – basically a web server that allows the creation and sharing (via HTTP) of a web application written with Java on the server-side. Although the web application is very simple (compared to real-world web applications), getting used to the setup can take some practice. Here is some relevant information about the web application configuration:
+
+- The web application is deployed in: `/opt/tomcat/webapps/`
 
 ## SecureMilkCarton: Project Structure
 
@@ -243,18 +241,83 @@ The directory structure of the web application is very important to learn and un
 
 This section documents several common scenarios that you will need to perform including creating the database for the web application, deleting the database, compiling the web application and how to access the web application.
 
-#### How to create database
+### How to create database
 
-Here
+The database is essential for the SecureMilkCarton web application to function. Therefore, creating the database is a key step. This process can be automated using the `create_db.sh` script provided in the `SecureMilkCarton/securemilk/databases` folder. Simply run the script using the following command (the following instructions assumes for have the repo in your home folder):
 
-#### How to delete and recreate database
+```
+cd ~/SecureMilkCarton/securemilk/databases
+./create_db.sh 
+```
 
-Here
+You will be prompted to enter the password for the root user of the database account. If you followed the official documentation, this password will be: `passw0rd`.
 
-#### How to compile and deploy
+The primary action the script performs is depicted in the following code snippet:
 
-Here
+```
+cat ~/SecureMilkCarton/securemilk/database/securemilk_db.sql | mysql -u root -p
+```
 
-#### How to access the web application
+This line of code prints the contents of `securemilk_db.sql` file containing the database contents, and pipes the content into the `mysql` command which populates the database.
 
-Here
+### How to delete and recreate database
+
+Similar to creating the database, you can also recreate the database using the same `securemilk_db.sql` file. However, be warned... this script drops the entire `securemilk` database and all entries. If you have made any modifications to the database contents, this information will be lost.
+
+Recreating the datadase can be automated using the `recreate_db.sh` script provided in the `SecureMilkCarton/securemilk/databases` folder. Simply run the script using the following command (the following instructions assumes for have the repo in your home folder):
+
+```
+cd ~/SecureMilkCarton/securemilk/databases
+./create_db.sh 
+```
+
+You will be prompted to enter the password for the root user of the database account. If you followed the official documentation, this password will be: `passw0rd`. The first time you are prompted for the password is to drop the database, the second time you are prompted for the password is to create the database again.
+
+### How to compile and deploy
+
+This project uses a simple static technique to compile and deploy a Tomcat web application. This process can be automated using the `compile.sh` script provided in the `SecureMilkCarton/securemilk/scripts` folder. Simply run the script using the following command (the following instructions assumes for have the repo in your home folder):
+
+```
+cd ~/SecureMilkCarton/securemilk/scripts
+sudo ./compile.sh 
+```
+
+Make sure you *use sudo to compile* the web application!
+
+Below is a snippet of the primary code that compiles and deploys the web application, which includes some comments to explain what each line achieves.
+
+```
+# Compile each of the three .java files
+javac -classpath "/opt/tomcat/lib/servlet-api.jar" ~/securemilk/WEB-INF/classes/Login.java ~/securemilk/WEB-INF/classes/Hashing.java
+javac -classpath "/opt/tomcat/lib/servlet-api.jar" ~/securemilk/WEB-INF/classes/Noticeboard.java
+
+# Create a .war file to export to the Java Tomcat web server
+jar -cf securemilk.war *
+
+# Copy the .war file to the Java Tomcat web server
+sudo cp securemilk.war /opt/tomcat/webapps/
+```
+
+### How to access the web application
+
+The web application is accessible through any web browser, however, it is recommended to use Mozilla Firefox or Google Chrome. The specific ports the web application are deployed on are:
+
+- HTTP on port 8080
+- HTTPS on port 8443 (not configured by default)
+
+Therefore you can access the web application by using the following URL in your web browser:
+
+- `<server-ip-address>:8080/securemilk/`
+- For example: `192.168.1.10:8080/securemilk/`
+
+If you performed the optional step of changing the default ports you can access the web application using the following URL in your web browser:
+
+- `<server-ip-address>/securemilk/`
+- For example: `192.168.1.10/securemilk/`
+
+Since SecureMilkCarton is a vulnerable, and terribly configured, web application it is not served using HTTPS by default. If you do implement HTTPS certificates, the web application will then be accessible using the following URLs:
+
+- `https://<server-ip-address>:8443/securemilk/` (if using port 8443)
+- For example: `192.168.1.10:8443/securemilk/`
+- `https://<server-ip-address>/securemilk/` (if using port 443)
+- For example: `https://192.168.1.10/securemilk/`
