@@ -1,6 +1,6 @@
 # SecureMilkCarton
 
-SecureMilkCarton is an intentionally vulnerable Tomcat web application. It seems vulnerable web applications for learning _hacking_ or _penetration testing_ are a dime-a-dozen. SecureMilkCarton is different, it has been specifically designed to learn *how to secure a poorly written web application*. The web application itself is riddled with security issues, including:
+SecureMilkCarton is an intentionally vulnerable Tomcat web application. It seems vulnerable web applications for learning _hacking_ or _penetration testing_ are a dime-a-dozen. SecureMilkCarton is different, it has been specifically designed to learn *how to secure a poorly written web application* and *how to secure a web server*. The web application itself is riddled with security issues, including:
 
 - Vulberable to SQL injection attacks
 - Vulnerable to XSS attacks
@@ -11,13 +11,11 @@ To add to the problem, the web server used to host the web application also suff
 
 - Non-existant firewall
 - Poorly configured MySQL database
-- Bad practice implementing security-related HTTP headers
 - No HTTPS configured
 - Default SSH configuration
+- Bad practice implementing security-related HTTP headers
 
-SecureMilkCarton was specifically designed as a practical assessment for the Introduction to Information Security course that I teach. This course is situated in the second year of a Bachelor of Information Technology degree, therefore, the assessment targets this specific level. However, the web application could be modified to target a variety of audiences.
-
-Included with SecureMilkCarton are a collection of tasks, somewhat similar to the assessment I wrote for my Introduction to Information Security course. Model answers can be provided to faculty members who are can prove that they are teaching courses in accredited educational institutes. Please email me for additional information.
+SecureMilkCarton was specifically designed as a practical assessment for the Introduction to Information Security course that I teach. This course is situated in the second year of a Bachelor of Information Technology degree, therefore, the assessment targets this specific level. However, the web application could be modified to target a variety of audiences. Included with SecureMilkCarton are a collection of tasks, somewhat similar to the assessment I wrote for my Introduction to Information Security course. The tasks and answers are provided in the folder called `exercises` in a PDF named `exercises.pdf` and `answers.pdf`. Since I want this project to be used by tertiary institutes, the tasks (questions) and model answers are encrypted and can only be accessed with a password. This password can be provided to faculty members who can prove that they are teaching courses in accredited educational institutes. Please email me for additional information.
 
 ## SecureMilkCarton: Quick Start
 
@@ -190,7 +188,7 @@ Finished.
 
 An alternative method to the using authbind is to utilize `iptables` to forward traffic from the default HTTP/HTTPS ports to the ports tomcat uses. This method is simple, however, I feel it interfers with any `iptables` firewall configuration that can be used.
 
-The following two `iptables` rules will forward all traffic from port 80 and 443 to the default tomcat ports of 8080 and 8443.
+The following two `iptables` rules will forward all traffic from port 80 and 443 to the default tomcat ports of 8080 and 8443. Please note, in the following example, the Internet-facing adapter is named `ens160`, you will need to modify this value for the network interface on your system (e.g., `eth0`).
 
 ```
 sudo iptables -t nat -A PREROUTING -i ens160 -p tcp --dport 80 -j REDIRECT --to-port 8080
@@ -209,6 +207,8 @@ A MySQL database has been installed and partially configured. The credentials fo
 Apache TomCat (a type of web server software) has also been installed on the server. The TomCat service is a Java Servlet Container – basically a web server that allows the creation and sharing (via HTTP) of a web application written with Java on the server-side. Although the web application is very simple (compared to real-world web applications), getting used to the setup can take some practice. Here is some relevant information about the web application configuration:
 
 - The web application is deployed in: `/opt/tomcat/webapps/`
+- The name of the web application is: `securemilkcarton`
+- The full location of the web application is: `/opt/tomcat/webapps/securemilkcarton`
 
 ## SecureMilkCarton: Project Structure
 
@@ -243,7 +243,7 @@ This section documents several common scenarios that you will need to perform in
 
 ### How to create database
 
-The database is essential for the SecureMilkCarton web application to function. Therefore, creating the database is a key step. This process can be automated using the `create_db.sh` script provided in the `SecureMilkCarton/securemilkcarton/databases` folder. Simply run the script using the following command (the following instructions assumes for have the repo in your home folder):
+The database is essential for the SecureMilkCarton web application to function. Therefore, creating the database is a key step. This process can be automated using the `create_db.sh` script provided in the `securemilkcarton/databases` folder. Simply run the script using the following command (the following instructions assumes for have the repo in your home folder):
 
 ```
 cd ~/SecureMilkCarton/securemilkcarton/databases
@@ -264,7 +264,7 @@ This line of code prints the contents of `securemilkcarton_db.sql` file containi
 
 Similar to creating the database, you can also recreate the database using the same `securemilkcarton_db.sql` file. However, be warned... this script drops the entire `securemilkcarton` database and all entries. If you have made any modifications to the database contents, this information will be lost.
 
-Recreating the datadase can be automated using the `recreate_db.sh` script provided in the `SecureMilkCarton/securemilkcarton/databases` folder. Simply run the script using the following command (the following instructions assumes for have the repo in your home folder):
+Recreating the datadase can be automated using the `recreate_db.sh` script provided in the `securemilkcarton/databases` folder. Simply run the script using the following command (the following instructions assumes for have the repo in your home folder):
 
 ```
 cd ~/SecureMilkCarton/securemilkcarton/databases
@@ -275,7 +275,7 @@ You will be prompted to enter the password for the root user of the database acc
 
 ### How to compile and deploy
 
-This project uses a simple static technique to compile and deploy a Tomcat web application. This process can be automated using the `compile.sh` script provided in the `SecureMilkCarton/securemilkcarton/scripts` folder. Simply run the script using the following command (the following instructions assumes for have the repo in your home folder):
+This project uses a simple static technique to compile and deploy a Tomcat web application. This process can be automated using the `compile.sh` script provided in the `securemilkcarton/scripts` folder. Simply run the script using the following command (the following instructions assumes for have the repo in your home folder):
 
 ```
 cd ~/SecureMilkCarton/securemilkcarton/scripts
@@ -321,3 +321,7 @@ Since SecureMilkCarton is a vulnerable, and terribly configured, web application
 - For example: `192.168.1.10:8443/securemilkcarton/`
 - `https://<server-ip-address>/securemilkcarton/` (if using port 443)
 - For example: `https://192.168.1.10/securemilkcarton/`
+
+## TODO
+
+- Build a docker image for easier deployment
