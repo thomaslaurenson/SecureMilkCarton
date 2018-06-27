@@ -41,7 +41,7 @@ public class Noticeboard extends HttpServlet {
 
     // Create an SQL statement to insert name, comment into database 
     conn.setAutoCommit(false);
-    String sql = "INSERT into noticeboard (name, comments) VALUES (" + name + "," + comments + ")";
+    String sql = "INSERT into noticeboard (name, comments) VALUES ('" + name + "', '" + comments + "')";
     Statement st = conn.prepareStatement(sql);
 
     // Print output to catalina.out log file
