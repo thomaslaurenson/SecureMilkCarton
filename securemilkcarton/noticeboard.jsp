@@ -10,9 +10,9 @@
          // A function to check if both text boxes have an entry
          function validate_form(thisform) {
              // Fetch the name and comments form entries
-             var name = document.getElementById('name').value;
-             var comments = document.getElementById('comments').value;
-             
+             var name = thisform.name.value;
+             var comments = thisform.comments.value;
+
              // Perform checks on user input
              if (name == "" || name == null)
              {
@@ -31,11 +31,11 @@
              else
              {
                  // If the user has submitted a valid name and comment:
-                 // Set the input boxes to empty and return true
+                 // Post the form, set input boxes to empty and return true
                  $.ajax({
-                 url: $(this).attr('action'),
-                 type: $(this).attr('method'),
-                 data: $(this).serialize(),
+                 url: $(thisform).attr('action'),
+                 type: $(thisform).attr('method'),
+                 data: {"name": name, "comments": comments},
                  success: function(html) {
                      $("#name").val('');
                      $("#comments").val('');
@@ -44,6 +44,7 @@
                  });
                  return true;
              }
+             return false;
          }
       </script>
    </head>
