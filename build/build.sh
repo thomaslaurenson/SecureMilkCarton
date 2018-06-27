@@ -138,11 +138,11 @@ then
    exit 1
 fi
 
-# Ownership: manager user for /opt/tomcat folders
-sudo chown -R manager webapps/ work/ temp/ logs/
+# Ownership: logged in user for /opt/tomcat folders
+sudo chown -R `whoami` webapps/ work/ temp/ logs/
 if [ ! $? -eq 0 ]
 then
-   echo "Failed manager user for /opt/tomcat folders. Exiting."
+   echo "Failed ownership change for /opt/tomcat folders. Exiting."
    exit 1
 fi
 
@@ -163,7 +163,7 @@ cd /tmp
 if [ ! -f /etc/systemd/system/tomcat.service ]
     then
     echo ">>> File not found... Downloading."
-    sudo cp ~/SecureMilkCarton/securemilkcarton/build/tomcat.service /etc/systemd/system/
+    sudo cp ~/SecureMilkCarton/build/tomcat.service /etc/systemd/system/
     if [ ! $? -eq 0 ]
     then
        echo ">>> Failed service download. Exiting."
