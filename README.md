@@ -19,6 +19,8 @@ SecureMilkCarton was specifically designed as a practical assessment for the Int
 
 ## SecureMilkCarton: Quick Start
 
+### Option 1: Build Script
+
 - Install Ubuntu 18.04 server on a VM
 - Make sure git is installed:
     - `sudo apt install git`
@@ -31,13 +33,25 @@ SecureMilkCarton was specifically designed as a practical assessment for the Int
     - `<server-ip-address>:8080/securemilkcarton/`
     - For example: `192.168.1.10:8080/securemilkcarton/`
 
-## SecureMilkCarton: Installation
+### Option 2: Docker
+
+- Make sure git is installed:
+- Clone this repository to your home directory:
+    - `cd ~ && git clone https://github.com/thomaslaurenson/SecureMilkCarton.git`
+- Install Docker and Docker Compose
+- Run Docker Compose:
+    - `cd ~/SecureMilkCarton/docker && docker-compose up`
+- Check the web application in a web browser:
+    - `<server-ip-address>:8080/securemilkcarton/`
+    - For example: `192.168.1.10:8080/securemilkcarton/`
+
+## SecureMilkCarton: Installation using Build Script
 
 The first step to install SecureMilkCarton is to install and configure a suitable virtual machine. This tutorial follows an virtual machine installed with Ubutnu Linux Server version 18.04 LTS that is hosted on VMWare vSphere (no notable differences in setup compared to VMWare Workstation).
 
 Create a new virtual machine and install using default options.
 
-When installed, make sure to update the opeating system:
+When installed, make sure to update the operating system:
 
 ```
 sudo apt update && sudo apt upgrade
