@@ -1,0 +1,147 @@
+body {
+	margin: 0px;
+    font-family: 'Helvetica';
+    color: #000000;
+}
+a:visited { 
+    color: #1a90f4;
+}
+
+/* MAIN PAGE POSITION */
+#wrapper {
+	position: relative;
+	width: 700px;
+	max-width: 700px;
+	margin-left: auto;
+    margin-right: auto;
+    background-color: #C2DFFF;
+}
+
+/* HEADER CONFIGURATION */
+#header {
+	position: relative;
+    height: 50px;
+    background-color: #65abe9;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+li {
+    float: left;
+}
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px 16px;
+    text-decoration: none;
+    font-weight: bold;
+}
+li a:hover {
+    background-color: #1a90f4;
+}
+li a:visited { 
+    color: #FFFFFF;
+}
+.active {
+    background-color: #1a90f4;
+}
+
+/* CONTENT CONFIGURATION */
+#content {
+	position: relative;
+	padding: 15px 15px 15px 15px;
+	font-size: 85%;
+    min-height: 400px;
+}
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+.imgcontainer img {
+    height: 300px;
+}
+
+/* FOOTER CONFIGURATION */
+#footer {
+	position: relative;
+	min-height: 20px;
+    padding: 15px 15px 15px 15px;
+    background-color: #1a90f4;
+    margin-top: 50px;
+}
+#footer p {
+	margin: 0;
+	padding: 0;
+    text-align: right;
+    color: white;
+    font-size: 75%;
+}
+
+/* FORM STYLE */
+.input-form {
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+}
+label {
+    display: block;
+    text-align: left;
+}
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+button {
+    background-color: #65abe9;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+}
+button:hover {
+    background-color: #1a90f4;
+}
+
+/* NOTICEBOARD CONFIGURATION */
+div.comments_section {
+    padding: 10px 20px 10px 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+div#noticeboard_comment {
+    background-color: white;
+    color: black;
+    padding: 10px 20px 10px 20px;
+    margin-bottom: 10px;
+}
+
+/* SEARCH RESULTS CONFIGURATION */
+#search {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+#search td, #search th {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+#search th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #65abe9;
+    color: white;
+}

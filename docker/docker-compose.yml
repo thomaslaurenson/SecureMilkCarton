@@ -1,0 +1,46 @@
+version: '2'
+services:
+  db:
+    # Set the container name to "mysql-container"
+    container_name: mysql-container
+    # MySQL database configuration, use latest image version
+    image: mysql:5.7
+    # Set to restart container
+    restart: always
+    environment:
+      # Allow remote root connection
+      - MYSQL_ROOT_HOST=%
+      # Set the root password to "passw0rd", this is configured in the web app
+      - MYSQL_ROOT_PASSWORD=passw0rd
+      # Initialize database with name: "securemilkcarton"
+      - MYSQL_DATABASE=securemilkcarton
+      - MYSQL_USER=user1
+      - MYSQL_PASSWORD=pass1      
+    ports:
+      # Set the usual MySQL port of "3306"
+      - "3306:3306"
+    volumes:
+      # Initialize database with "securemilkcarton.sql" file
+      # File located in: "securemilkcarton/database" directory
+      - ./webapps/securemilkcarton/database:/docker-entrypoint-initdb.d
+  web:
+    # Apache Tomcat web server configuration, use latest image version
+    image: tomcat:latest
+    # Set the container name to "tomcat-container"
+    container_name: tomcat-container
+    # Make sure MySQL database runs first
+    depends_on:
+      - db
+    environment:
+      # Specify the MySQL database connection details for the web app
+      - JDBC_URL=jdbc:mysql://db:3306/securemilkcarton?connectTimeout=0&amp;socketTimeout=0&amp;autoReconnect=true
+      - JDBC_USER=user1
+      - JDBC_PASS=pass1
+    ports:
+      # Specify Apache Tomcat to run on port 80
+      - "8080:8080"
+    volumes:
+      # Specify the 
+      - ./webapps:/usr/local/tomcat/webapps/
+    links:
+      - db:db
