@@ -1,13 +1,23 @@
 # This script will setup the environment for SecureMilkCarton
 
+# Move the the script directory
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 # Install required packages
-# default-jdk - tomcat requires Java
+# default-jdk - Apache Tomcat requires Java
 # curl - required for downloading files
-# mysql-server - required for database
-sudo apt-get --assume-yes install default-jdk curl mysql-server
+sudo apt-get --assume-yes install default-jdk curl
 if [ ! $? -eq 0 ]
 then
-   echo ">>> Failed package install. Exiting."
+   echo ">>> Failed initial package install. Exiting."
+   exit 1
+fi
+
+# mysql-server - required for database
+sudo apt-get install mysql-server
+if [ ! $? -eq 0 ]
+then
+   echo ">>> Failed mysql install. Exiting."
    exit 1
 fi
 
@@ -49,30 +59,6 @@ then
    exit 1
 fi
 
-cd /tmp
-
-# Download the servlet api
-if [ ! -f /tmp/javax.servlet-api-3.1.0.jar ]
-    then
-    echo ">>> File not found... Downloading."
-    curl -O http://central.maven.org/maven2/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar
-    if [ ! $? -eq 0 ]
-    then
-       echo ">>> Failed servlet download. Exiting."
-       exit 1
-    fi
-else
-    echo ">>> File found... Skipping download."
-fi
-
-# Copy the servlet to the correct tomcat directory
-sudo mv javax.servlet-api-3.1.0.jar /opt/tomcat/lib/servlet-api.jar
-if [ ! $? -eq 0 ]
-then
-   echo "Failed servlet copy. Exiting."
-   exit 1
-fi
-
 # Make a group called tomcat
 groupname="tomcat"
 if grep -q $groupname /etc/group
@@ -87,7 +73,6 @@ else
        exit 1
     fi
 fi
-
 
 # Make a user called tomcat
 username="tomcat"
@@ -159,18 +144,34 @@ fi
 
 cd /tmp
 
-# Download the service file
-if [ ! -f /etc/systemd/system/tomcat.service ]
-    then
-    echo ">>> File not found... Downloading."
-    sudo cp ~/SecureMilkCarton/build/tomcat.service /etc/systemd/system/
-    if [ ! $? -eq 0 ]
-    then
-       echo ">>> Failed service download. Exiting."
-       exit 1
-    fi
-else
-    echo ">>> File found... Skipping download."
+# Create service file for Apache Tomcat
+touch tomcat.service
+echo "[Unit]" >> tomcat.service
+echo "Description=Apache Tomcat Web Application Container" >> tomcat.service
+echo "After=network.target" >> tomcat.service
+echo "[Service]" >> tomcat.service
+echo "Type=forking" >> tomcat.service
+echo "Environment=JAVA_HOME=`sudo update-java-alternatives -l | awk '{print $3}'`"
+echo "Environment=CATALINA_PID=/opt/tomcat/temp/tomcat.pid" >> tomcat.service
+echo "Environment=CATALINA_HOME=/opt/tomcat" >> tomcat.service
+echo "Environment=CATALINA_BASE=/opt/tomcat" >> tomcat.service
+echo "Environment='CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'" >> tomcat.service
+echo "Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom'" >> tomcat.service
+echo "ExecStart=/opt/tomcat/bin/startup.sh" >> tomcat.service
+echo "ExecStop=/opt/tomcat/bin/shutdown.sh" >> tomcat.service
+echo "User=tomcat" >> tomcat.service
+echo "Group=tomcat" >> tomcat.service
+echo "UMask=0007" >> tomcat.service
+echo "RestartSec=10" >> tomcat.service
+echo "Restart=always" >> tomcat.service
+echo "[Install]" >> tomcat.service
+echo "WantedBy=multi-user.target" >> tomcat.service
+
+sudo cp tomcat.service /etc/systemd/system/
+if [ ! $? -eq 0 ]
+then
+    echo ">>> Failed moving tomcat.service file. Exiting."
+    exit 1
 fi
 
 sudo chmod 755 /etc/systemd/system/tomcat.service
@@ -199,24 +200,19 @@ sudo systemctl enable tomcat
 # Can set it to manual, just use the command:
 #sudo mysql_secure_installation
 
-# Change to home directory
-cd ~
-
-# Move to the securemilkcarton database directory
-cd ~/SecureMilkCarton/securemilkcarton/database
+# Change to build script directory
+cd $DIR
+cd ..
 
 # Set appropriate permissions
-chmod u+x create_db.sh
-chmod u+x recreate_db.sh
+chmod u+x scripts/create_db.sh
+chmod u+x scripts/recreate_db.sh
 
 # Create the database
-./create_db.sh
-
-# Move to the securemilkcarton scripts directory
-cd ~/SecureMilkCarton/securemilkcarton/scripts
+./scripts/create_db.sh
 
 # Set appropriate permissions
-chmod u+x compile.sh
+chmod u+x scripts/compile.sh
 
 # Run the compilation script
-sudo ./compile.sh
+sudo ./scripts/compile.sh
