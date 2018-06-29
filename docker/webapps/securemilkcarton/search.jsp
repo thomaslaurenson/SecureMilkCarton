@@ -54,7 +54,7 @@
                         try 
                         {
                             Class.forName("com.mysql.jdbc.Driver");
-                            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/securemilkcarton?autoReconnect=true&useSSL=false", "root", "passw0rd");
+                            Connection conn = DriverManager.getConnection("jdbc:mysql://db:3306/securemilkcarton?autoReconnect=true&useSSL=false", "root", "passw0rd");
                         
                             Statement st = conn.createStatement();
                             String sql = "SELECT username, name, description FROM members WHERE username='" + username + "'";
