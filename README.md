@@ -2,7 +2,7 @@
 
 SecureMilkCarton is an intentionally vulnerable Tomcat web application. It seems vulnerable web applications for learning _hacking_ or _penetration testing_ are a dime-a-dozen. SecureMilkCarton is different, it has been specifically designed to learn *how to secure a poorly written web application* and *how to secure a web server*. The web application itself is riddled with security issues, including:
 
-- Vulberable to SQL injection attacks
+- Vulnerable to SQL injection attacks
 - Vulnerable to XSS attacks
 - Access control issues
 - Bad password storage practices
@@ -47,7 +47,7 @@ SecureMilkCarton was specifically designed as a practical assessment for the Int
 
 ## SecureMilkCarton: Installation using Build Script
 
-The first step to install SecureMilkCarton is to install and configure a suitable virtual machine. This tutorial follows an virtual machine installed with Ubutnu Linux Server version 18.04 LTS that is hosted on VMWare vSphere (no notable differences in setup compared to VMWare Workstation).
+The first step to install SecureMilkCarton is to install and configure a suitable virtual machine. This tutorial follows an virtual machine installed with Ubuntu Linux Server version 18.04 LTS that is hosted on VMWare vSphere (no notable differences in setup compared to VMWare Workstation).
 
 Create a new virtual machine and install using default options.
 
