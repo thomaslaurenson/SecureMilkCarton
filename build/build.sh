@@ -25,10 +25,10 @@ fi
 cd /tmp
 
 # Download tomcat tarball, skip if already downloaded
-if [ ! -f /tmp/apache-tomcat-8.0.52.tar.gz ]
+if [ ! -f /tmp/apache-tomcat-8.0.53.tar.gz ]
     then
     echo ">>> File not found... Downloading."
-    curl -O http://www-us.apache.org/dist/tomcat/tomcat-8/v8.0.52/bin/apache-tomcat-8.0.52.tar.gz
+    curl -O http://www-us.apache.org/dist/tomcat/tomcat-8/v8.0.53/bin/apache-tomcat-8.0.53.tar.gz
     if [ ! $? -eq 0 ]
     then
        echo ">>> Failed tomcat download. Exiting."
@@ -52,7 +52,7 @@ else
 fi
 
 # Extract tomcat to /opt/tomcat
-sudo tar xzvf apache-tomcat-8.0.52.tar.gz -C /opt/tomcat --strip-components=1
+sudo tar xzvf apache-tomcat-8.0.53.tar.gz -C /opt/tomcat --strip-components=1
 if [ ! $? -eq 0 ]
 then
    echo "Failed tomcat extraction. Exiting."
@@ -202,17 +202,17 @@ sudo systemctl enable tomcat
 
 # Change to build script directory
 cd $DIR
-cd ..
+cd ../securemilkcarton/scripts/
 
 # Set appropriate permissions
-chmod u+x scripts/create_db.sh
-chmod u+x scripts/recreate_db.sh
+chmod u+x create_db.sh
+chmod u+x recreate_db.sh
 
 # Create the database
-./scripts/create_db.sh
+./create_db.sh
 
 # Set appropriate permissions
-chmod u+x scripts/compile.sh
+chmod u+x compile.sh
 
 # Run the compilation script
-sudo ./scripts/compile.sh
+sudo ./compile.sh
