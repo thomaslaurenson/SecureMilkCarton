@@ -28,7 +28,7 @@ cd /tmp
 if [ ! -f /tmp/apache-tomcat-8.0.53.tar.gz ]
     then
     echo ">>> File not found... Downloading."
-    curl -O http://www-us.apache.org/dist/tomcat/tomcat-8/v8.0.53/bin/apache-tomcat-8.0.53.tar.gz
+    curl -O https://archive.apache.org/dist/tomcat/tomcat-8/v8.0.53/bin/apache-tomcat-8.0.53.tar.gz
     if [ ! $? -eq 0 ]
     then
        echo ">>> Failed tomcat download. Exiting."
